@@ -16,4 +16,17 @@ config CHARGER_LN8000
 	help
 	  Say Y to enable support for the LN8000 charger
 
+config K9A_CHARGE
+	bool
+	prompt "K9A special modify."
+	default n
+	help
+		K9A special modify.
+config K6_CHARGE
+	bool
+	prompt "K6 special modify."
+	default n
+	help
+		K6 special modify.
+
 endmenu
