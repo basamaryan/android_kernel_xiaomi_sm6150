@@ -35,6 +35,8 @@
 		qcom,mdss-dsi-lane-1-state;
 		qcom,mdss-dsi-lane-2-state;
 		qcom,mdss-dsi-lane-3-state;
+		qcom,mdss-brightness-max-level = <2047>;
+		qcom,mdss-dsi-bl-default-level = <536>;
 		qcom,bl-update-flag = "delay_until_first_frame";
 		qcom,mdss-dsi-dma-trigger = "trigger_sw";
 		qcom,mdss-dsi-mdp-trigger = "none";
@@ -130,7 +132,7 @@
 					39 01 00 00 00 00 02 F4 1F
 					39 01 00 00 00 00 03 F0 A5 A5
 					39 01 00 00 00 00 03 FC A5 A5
-					39 01 00 00 00 00 02 53 28
+					39 01 00 00 00 00 02 53 20
 					39 01 00 00 64 00 03 51 00 00
 					05 01 00 00 00 00 02 29 00];
 					qcom,mdss-dsi-off-command = [
