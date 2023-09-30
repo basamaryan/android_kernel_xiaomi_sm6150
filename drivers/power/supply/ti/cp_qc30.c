@@ -84,6 +84,12 @@
 #define CP_ENABLE_FAIL			2
 #define TAPER_DONE			1
 
+#ifdef	CONFIG_CHARGER_LN8000
+#define VBUS_COMP		250
+#else
+#define VBUS_COMP		150
+#endif
+
 enum {
 	VBUS_ERROR_NONE,
 	VBUS_ERROR_LOW,
@@ -1106,7 +1112,7 @@ void cp_statemachine(unsigned int port)
 		cp_update_fc_status();
 #ifdef CONFIG_K6_CHARGE
 		if (pm_state.bq2597x.bus_error_status == VBUS_ERROR_LOW ||
-				pm_state.bq2597x.vbus_volt < pm_state.bq2597x.vbat_volt * 2 + 150) {
+				pm_state.bq2597x.vbus_volt < pm_state.bq2597x.vbat_volt * 2 + VBUS_COMP) {
 			tune_vbus_retry = cp_get_qc_pulse_cnt();
 			tune_vbus_retry++;
 			cp_tune_vbus_volt(VOLT_UP);
@@ -1258,6 +1264,9 @@ static void cp_workfunc(struct work_struct *work)
 	if (pm_state.usb_present == 0) {
 		cp_set_qc_bus_protections(HVDCP3_NONE);
 		cp_set_fake_hvdcp3(false);
+#ifdef CONFIG_CHARGER_LN8000
+		pm_state.state = CP_STATE_DISCONNECT;
+#endif
 		return;
 	}
 
