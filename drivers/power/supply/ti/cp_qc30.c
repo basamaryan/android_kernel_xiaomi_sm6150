@@ -141,6 +141,7 @@ static pm_t pm_state;
 
 static int fc2_taper_timer;
 static int ibus_lmt_change_timer;
+static int reverse_count = 0;
 
 static struct power_supply *cp_get_sw_psy(void)
 {
