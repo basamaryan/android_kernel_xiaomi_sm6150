@@ -43,6 +43,10 @@
 #include <linux/backlight.h>
 #include "../xiaomi/xiaomi_touch.h"
 
+#ifdef CONFIG_TOUCHSCREEN_COMMON
+#include <linux/input/tp_common.h>
+#endif
+
 #define INPUT_EVENT_START						0
 #define INPUT_EVENT_SENSITIVE_MODE_OFF			0
 #define INPUT_EVENT_SENSITIVE_MODE_ON			1
@@ -764,6 +768,44 @@ static ssize_t goodix_ts_tp_get_testcfg_show(struct device *dev,
 	ts_info("get_testcfg finish!");
 	return ret;
 }
+
+#ifdef CONFIG_TOUCHSCREEN_COMMON
+static ssize_t double_tap_show(struct kobject *kobj,
+			       struct kobj_attribute *attr, char *buf)
+{
+	return sprintf(buf, "%d\n", goodix_core_data->double_wakeup);
+}
+
+static ssize_t double_tap_store(struct kobject *kobj,
+				struct kobj_attribute *attr, const char *buf,
+				size_t count)
+{
+	int rc, val;
+
+	rc = kstrtoint(buf, 10, &val);
+	if (rc)
+		return -EINVAL;
+
+	goodix_core_data->double_wakeup = !!val;
+	if (goodix_core_data->fod_status == -1 ||
+	    goodix_core_data->fod_status == 100)
+		goodix_core_data->gesture_enabled =
+			goodix_core_data->double_wakeup |
+			goodix_core_data->aod_status;
+	else
+		goodix_core_data->gesture_enabled =
+			goodix_core_data->double_wakeup |
+			goodix_core_data->fod_status |
+			goodix_core_data->aod_status;
+
+	return count;
+}
+
+static struct tp_common_ops double_tap_ops = {
+	.show = double_tap_show,
+	.store = double_tap_store,
+};
+#endif
 
 static DEVICE_ATTR(extmod_info, S_IRUGO, goodix_ts_extmod_show, NULL);
 static DEVICE_ATTR(driver_info, S_IRUGO, goodix_ts_driver_info_show, NULL);
@@ -3121,6 +3163,13 @@ static int goodix_ts_probe(struct platform_device *pdev)
 
 	/*create sysfs files*/
 	goodix_ts_sysfs_init(core_data);
+
+#ifdef CONFIG_TOUCHSCREEN_COMMON
+	r = tp_common_set_double_tap_ops(&double_tap_ops);
+	if (r < 0) {
+		ts_err("Failed to create double_tap node err=%d\n", r);
+	}
+#endif
 
 	r = ts_device->hw_ops->reset(ts_device);
 	if (r < 0) {
