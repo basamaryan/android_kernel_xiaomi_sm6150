@@ -304,6 +304,7 @@ struct file *alloc_file(const struct path *path, fmode_t mode,
 	file->f_inode = path->dentry->d_inode;
 	file->f_mapping = path->dentry->d_inode->i_mapping;
 	file->f_wb_err = filemap_sample_wb_err(file->f_mapping);
+	file->f_sb_err = file_sample_sb_err(file);
 	if ((mode & FMODE_READ) &&
 	     likely(fop->read || fop->read_iter))
 		mode |= FMODE_CAN_READ;
@@ -396,12 +397,6 @@ void flush_delayed_fput(void)
 }
 
 static DECLARE_DELAYED_WORK(delayed_fput_work, delayed_fput);
-
-void flush_delayed_fput_wait(void)
-{
-	delayed_fput(NULL);
-	flush_delayed_work(&delayed_fput_work);
-}
 
 void fput_many(struct file *file, unsigned int refs)
 {
