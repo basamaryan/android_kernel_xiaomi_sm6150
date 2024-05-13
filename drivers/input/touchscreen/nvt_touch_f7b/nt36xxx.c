@@ -45,11 +45,6 @@
 #endif
 #include "../lct_tp_gesture.h"  //add by zhangchaofan for tp_gesture, 2018-10-24
 #include "../lct_tp_grip_area.h"    /* modify by zhangchaofan@longcheer.com for angle inhibit, 2018-12-12 */
-#if WAKEUP_GESTURE
-#ifdef CONFIG_TOUCHSCREEN_COMMON
-#include <linux/input/tp_common.h>
-#endif
-#endif
 /* add verify LCD by zhangchaofan start, 2018-09-06*/
 #ifdef CONFIG_TOUCHSCREEN_XIAOMI_TOUCHFEATURE
 #include "../xiaomi/xiaomi_touch.h"
@@ -161,33 +156,6 @@ int nvt_gesture_switch(struct input_dev *dev, unsigned int type, unsigned int co
 	}
 	return 0;
 }
-
-#ifdef CONFIG_TOUCHSCREEN_COMMON
-static ssize_t double_tap_show(struct kobject *kobj,
-                               struct kobj_attribute *attr, char *buf)
-{
-    return sprintf(buf, "%d\n", enable_gesture_mode);
-}
-
-static ssize_t double_tap_store(struct kobject *kobj,
-                                struct kobj_attribute *attr, const char *buf,
-                                size_t count)
-{
-    int rc, val;
-
-    rc = kstrtoint(buf, 10, &val);
-    if (rc)
-    return -EINVAL;
-
-    enable_gesture_mode = !!val;
-    return count;
-}
-
-static struct tp_common_ops double_tap_ops = {
-    .show = double_tap_show,
-    .store = double_tap_store
-};
-#endif
 #endif
 /* modify end by zhangchaofan for tp gesture, 2018-10-24 */
 
@@ -1397,8 +1365,12 @@ static int nvt_set_cur_value(int nvt_mode, int nvt_value)
 	uint8_t reg_value = 0;
 	uint8_t ret = 0;
 
-	if (bTouchIsAwake) {
+	if (nvt_mode == Touch_Doubletap_Mode && nvt_value >= 0) {
+		enable_gesture_mode = nvt_value;
+		return 0;
+	}
 
+	if (bTouchIsAwake) {
 
 		if (nvt_mode >= Touch_Mode_NUM && nvt_mode < 0) {
 			NVT_ERR("%s, nvt mode is error:%d", __func__, nvt_mode);
@@ -1711,13 +1683,6 @@ static int32_t nvt_ts_probe(struct i2c_client *client, const struct i2c_device_i
 		input_set_capability(ts->input_dev, EV_KEY, gesture_key_array[retry]);
 	}
 	wakeup_source_init(&gestrue_wakelock, "gestrue_wakelock");
-#ifdef CONFIG_TOUCHSCREEN_COMMON
-    ret = tp_common_set_double_tap_ops(&double_tap_ops);
-    if (ret < 0) {
-        NVT_ERR("%s: Failed to create double_tap node err=%d\n",
-                __func__, ret);
-    }
-#endif
 #endif
 /* modify end by zhangchaofan for gesture, 2018-10-24 */
 
