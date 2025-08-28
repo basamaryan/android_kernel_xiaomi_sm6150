@@ -802,16 +802,6 @@ void __weak bpf_jit_free_exec(void *addr)
 	module_memfree(addr);
 }
 
-void *__weak bpf_jit_alloc_exec(unsigned long size)
-{
-	return module_alloc(size);
-}
-
-void __weak bpf_jit_free_exec(void *addr)
-{
-	module_memfree(addr);
-}
-
 #if IS_ENABLED(CONFIG_BPF_JIT) && IS_ENABLED(CONFIG_CFI_CLANG)
 bool __weak arch_bpf_jit_check_func(const struct bpf_prog *prog)
 {
