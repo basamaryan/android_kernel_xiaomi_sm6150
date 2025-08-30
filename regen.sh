@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # Array of device names
-devices=("sweet" "tucana" "toco" "phoenix" "davinci")
-#devices=("sweet" "courbet")
+devices=("sweet")
 
 # Loop through the devices
 for device in "${devices[@]}"
