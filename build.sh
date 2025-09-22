@@ -22,7 +22,7 @@ ZIPNAME="${DEVICE}-$(date '+%Y%m%d-%H%M').zip"
 export ARCH=arm64
 export KBUILD_BUILD_USER=aryan
 export KBUILD_BUILD_HOST=celeste
-export PATH="/home/celeste/16/prebuilts/clang/host/linux-x86/clang-r547379/bin/:$PATH"
+export PATH="/home/aryan/16/prebuilts/clang/host/linux-x86/clang-r547379/bin/:$PATH"
 
 if [[ $1 = "-c" || $1 = "--clean" ]]; then
 	rm -rf out
