@@ -453,9 +453,9 @@ static int do_read_inode(struct inode *inode)
 		}
 	}
 
-	F2FS_I(inode)->i_disk_time[0] = inode->i_atime;
-	F2FS_I(inode)->i_disk_time[1] = inode->i_ctime;
-	F2FS_I(inode)->i_disk_time[2] = inode->i_mtime;
+	F2FS_I(inode)->i_disk_time[0] = timespec64_to_timespec(inode->i_atime);
+	F2FS_I(inode)->i_disk_time[1] = timespec64_to_timespec(inode->i_ctime);
+	F2FS_I(inode)->i_disk_time[2] = timespec64_to_timespec(inode->i_mtime);
 	F2FS_I(inode)->i_disk_time[3] = F2FS_I(inode)->i_crtime;
 	f2fs_put_page(node_page, 1);
 
@@ -503,7 +503,7 @@ make_now:
 		inode->i_op = &f2fs_dir_inode_operations;
 		inode->i_fop = &f2fs_dir_operations;
 		inode->i_mapping->a_ops = &f2fs_dblock_aops;
-		mapping_set_gfp_mask(inode->i_mapping, GFP_NOFS);
+		inode_nohighmem(inode);
 	} else if (S_ISLNK(inode->i_mode)) {
 		if (file_is_encrypt(inode))
 			inode->i_op = &f2fs_encrypted_symlink_inode_operations;
@@ -636,9 +636,9 @@ void f2fs_update_inode(struct inode *inode, struct page *node_page)
 	if (inode->i_nlink == 0)
 		clear_inline_node(node_page);
 
-	F2FS_I(inode)->i_disk_time[0] = inode->i_atime;
-	F2FS_I(inode)->i_disk_time[1] = inode->i_ctime;
-	F2FS_I(inode)->i_disk_time[2] = inode->i_mtime;
+	F2FS_I(inode)->i_disk_time[0] = timespec64_to_timespec(inode->i_atime);
+	F2FS_I(inode)->i_disk_time[1] = timespec64_to_timespec(inode->i_ctime);
+	F2FS_I(inode)->i_disk_time[2] = timespec64_to_timespec(inode->i_mtime);
 	F2FS_I(inode)->i_disk_time[3] = F2FS_I(inode)->i_crtime;
 
 #ifdef CONFIG_F2FS_CHECK_FS
@@ -773,11 +773,14 @@ no_delete:
 	stat_dec_compr_inode(inode);
 	stat_sub_compr_blocks(inode, F2FS_I(inode)->i_compr_blocks);
 
-	if (likely(!f2fs_cp_error(sbi) &&
-				!is_sbi_flag_set(sbi, SBI_CP_DISABLED)))
-		f2fs_bug_on(sbi, is_inode_flag_set(inode, FI_DIRTY_INODE));
-	else
+	if (unlikely(is_inode_flag_set(inode, FI_DIRTY_INODE))) {
 		f2fs_inode_synced(inode);
+		f2fs_warn(sbi, "inconsistent dirty inode:%lu entry found during eviction\n",
+			 inode->i_ino);
+		if (!is_set_ckpt_flags(sbi, CP_ERROR_FLAG) &&
+		    !is_sbi_flag_set(sbi, SBI_CP_DISABLED))
+			f2fs_bug_on(sbi, 1);
+	}
 
 	/* for the case f2fs_new_inode() was failed, .i_ino is zero, skip it */
 	if (inode->i_ino)
@@ -854,7 +857,6 @@ void f2fs_handle_failed_inode(struct inode *inode)
 	} else {
 		set_inode_flag(inode, FI_FREE_NID);
 	}
-
 out:
 	f2fs_unlock_op(sbi);
 
