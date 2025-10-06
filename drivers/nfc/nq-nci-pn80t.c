@@ -257,7 +257,10 @@ static ssize_t nfc_write(struct file *filp, const char __user *buf,
 	struct nqx_dev *nqx_dev = filp->private_data;
 	char *tmp = NULL;
 	int ret = 0;
+<<<<<<< HEAD
 	int retry_cnt;
+=======
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 
 	if (!nqx_dev) {
 		ret = -ENODEV;
@@ -278,6 +281,7 @@ static ssize_t nfc_write(struct file *filp, const char __user *buf,
 		goto out;
 	}
 
+<<<<<<< HEAD
 	retry_cnt = 0;
 	while (retry_cnt < MAX_RETRY_COUNT && (ret = i2c_master_send(nqx_dev->client, tmp, count)) != count) {
 		dev_err(&nqx_dev->client->dev,
@@ -288,6 +292,12 @@ static ssize_t nfc_write(struct file *filp, const char __user *buf,
 
 	if (retry_cnt >= MAX_RETRY_COUNT) {
 		dev_err(&nqx_dev->client->dev, "%s: failed to write after %d retries\n", __func__, retry_cnt);
+=======
+	ret = i2c_master_send(nqx_dev->client, tmp, count);
+	if (ret != count) {
+		dev_err(&nqx_dev->client->dev,
+		"%s: failed to write %d\n", __func__, ret);
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 		ret = -EIO;
 		goto out_free;
 	}

@@ -143,6 +143,7 @@ static int pd_get_batt_current_thermal_level(struct usbpd_pm *pdpm, int *level)
 	return rc;
 }
 
+<<<<<<< HEAD
 /* get capacity from battery power supply property */
 static int pd_get_batt_capacity(struct usbpd_pm *pdpm, int *capacity)
 {
@@ -167,6 +168,8 @@ static int pd_get_batt_capacity(struct usbpd_pm *pdpm, int *capacity)
 	return rc;
 }
 
+=======
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 /* determine whether to disable cp according to jeita status */
 static bool pd_disable_cp_by_jeita_status(struct usbpd_pm *pdpm)
 {
@@ -362,11 +365,15 @@ static void usbpd_check_cp_psy(struct usbpd_pm *pdpm)
 		else
 			pdpm->cp_psy = power_supply_get_by_name("bq2597x-standalone");
 		if (!pdpm->cp_psy)
+<<<<<<< HEAD
 		{
 			pdpm->cp_psy = power_supply_get_by_name("ln8000");
 			if (!pdpm->cp_psy)
 				pr_err("cp_psy not found\n");
 		}
+=======
+			pr_err("cp_psy not found\n");
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 	}
 }
 
@@ -1164,7 +1171,10 @@ static int usbpd_pm_sm(struct usbpd_pm *pdpm)
 	int thermal_level = 0;
 	static int curr_fcc_lmt, curr_ibus_lmt, retry_count;
 	static int request_fail_count = 0;
+<<<<<<< HEAD
 	int capacity = 0;
+=======
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 
 	switch (pdpm->state) {
 	case PD_PM_STATE_ENTRY:
@@ -1177,7 +1187,10 @@ static int usbpd_pm_sm(struct usbpd_pm *pdpm)
 		pdpm->is_temp_out_fc2_range = pd_disable_cp_by_jeita_status(pdpm);
 		pr_info("is_temp_out_fc2_range:%d\n", pdpm->is_temp_out_fc2_range);
 
+<<<<<<< HEAD
 		pd_get_batt_capacity(pdpm, &capacity);
+=======
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 		effective_fcc_val = usbpd_get_effective_fcc_val(pdpm);
 
 		if (effective_fcc_val > 0) {
@@ -1191,8 +1204,13 @@ static int usbpd_pm_sm(struct usbpd_pm *pdpm)
 
 		if (pdpm->cp.vbat_volt < pm_config.min_vbat_for_cp) {
 			pr_info("batt_volt %d, waiting...\n", pdpm->cp.vbat_volt);
+<<<<<<< HEAD
 		} else if (pdpm->cp.vbat_volt > pm_config.bat_volt_lp_lmt - 50 || capacity > 95) {
 			pr_info("batt_volt %d or capacity is too high for cp, charging with switch charger\n",
+=======
+		} else if (pdpm->cp.vbat_volt > pm_config.bat_volt_lp_lmt - 50) {
+			pr_info("batt_volt %d is too high for cp, charging with switch charger\n",
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 					pdpm->cp.vbat_volt);
 			usbpd_pm_move_state(pdpm, PD_PM_STATE_FC2_EXIT);
 			if (pm_config.bat_volt_lp_lmt < BAT_VOLT_LOOP_LMT)

@@ -1,7 +1,10 @@
 /*
  * Copyright (c) 2018-2020, The Linux Foundation. All rights reserved.
  * Copyright (C) 2021 XiaoMi, Inc.
+<<<<<<< HEAD
  * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
+=======
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and

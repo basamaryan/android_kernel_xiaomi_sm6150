@@ -146,9 +146,12 @@ static bool is_bq25970_available(struct step_chg_info *chip)
 	if (!chip->bq_psy)
 		chip->bq_psy = power_supply_get_by_name("bq2597x-standalone");
 
+<<<<<<< HEAD
         if (!chip->bq_psy)
                 chip->bq_psy = power_supply_get_by_name("ln8000");
 
+=======
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 	if (!chip->bq_psy)
 		return false;
 

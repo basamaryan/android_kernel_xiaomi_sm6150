@@ -14,10 +14,14 @@
 
 
 #define pr_fmt(fmt)	"dsi-drm:[%s] " fmt, __func__
+<<<<<<< HEAD
 
 #ifndef CONFIG_MACH_XIAOMI_PHOENIX
 #include <linux/msm_drm_notify.h>
 #endif
+=======
+#include <linux/msm_drm_notify.h>
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 
 #include <drm/drm_atomic_helper.h>
 #include <drm/drm_atomic.h>
@@ -186,6 +190,8 @@ static void dsi_bridge_pre_enable(struct drm_bridge *bridge)
 {
 	int rc = 0;
 	struct dsi_bridge *c_bridge = to_dsi_bridge(bridge);
+	struct msm_drm_notifier notify_data;
+	int power_mode;
 
 #ifndef CONFIG_MACH_XIAOMI_PHOENIX
 	struct msm_drm_notifier notify_data;
@@ -204,12 +210,18 @@ static void dsi_bridge_pre_enable(struct drm_bridge *bridge)
 
 	atomic_set(&c_bridge->display->panel->esd_recovery_pending, 0);
 
+<<<<<<< HEAD
 #ifndef CONFIG_MACH_XIAOMI_PHOENIX
+=======
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 	power_mode = sde_connector_get_lp(c_bridge->display->drm_conn);
 	notify_data.data = &power_mode;
 	notify_data.id = MSM_DRM_PRIMARY_DISPLAY;
 	msm_drm_notifier_call_chain(MSM_DRM_EARLY_EVENT_BLANK, &notify_data);
+<<<<<<< HEAD
 #endif
+=======
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 
 	/* By this point mode should have been validated through mode_fixup */
 	rc = dsi_display_set_mode(c_bridge->display,
@@ -252,9 +264,14 @@ static void dsi_bridge_pre_enable(struct drm_bridge *bridge)
 	}
 	SDE_ATRACE_END("dsi_display_enable");
 
+<<<<<<< HEAD
 #ifndef CONFIG_MACH_XIAOMI_PHOENIX
 	msm_drm_notifier_call_chain(MSM_DRM_EVENT_BLANK, &notify_data);
 #endif
+=======
+	msm_drm_notifier_call_chain(MSM_DRM_EVENT_BLANK, &notify_data);
+
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 	rc = dsi_display_splash_res_cleanup(c_bridge->display);
 	if (rc)
 		pr_err("Continuous splash pipeline cleanup failed, rc=%d\n",
@@ -387,6 +404,8 @@ static void dsi_bridge_post_disable(struct drm_bridge *bridge)
 {
 	int rc = 0;
 	struct dsi_bridge *c_bridge = to_dsi_bridge(bridge);
+	struct msm_drm_notifier notify_data;
+	int power_mode;
 
 #ifndef CONFIG_MACH_XIAOMI_PHOENIX
 	struct msm_drm_notifier notify_data;
@@ -397,12 +416,19 @@ static void dsi_bridge_post_disable(struct drm_bridge *bridge)
 		return;
 	}
 
+<<<<<<< HEAD
 #ifndef CONFIG_MACH_XIAOMI_PHOENIX
+=======
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 	power_mode = sde_connector_get_lp(c_bridge->display->drm_conn);
 	notify_data.data = &power_mode;
 	notify_data.id = MSM_DRM_PRIMARY_DISPLAY;
 	msm_drm_notifier_call_chain(MSM_DRM_EARLY_EVENT_BLANK, &notify_data);
+<<<<<<< HEAD
 #endif
+=======
+
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 	SDE_ATRACE_BEGIN("dsi_bridge_post_disable");
 	SDE_ATRACE_BEGIN("dsi_display_disable");
 	rc = dsi_display_disable(c_bridge->display);
@@ -426,9 +452,13 @@ static void dsi_bridge_post_disable(struct drm_bridge *bridge)
 	if (c_bridge->display->is_prim_display)
 		atomic_set(&prim_panel_is_on, false);
 
+<<<<<<< HEAD
 #ifndef CONFIG_MACH_XIAOMI_PHOENIX
 	msm_drm_notifier_call_chain(MSM_DRM_EVENT_BLANK, &notify_data);
 #endif
+=======
+	msm_drm_notifier_call_chain(MSM_DRM_EVENT_BLANK, &notify_data);
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 }
 
 static void prim_panel_off_delayed_work(struct work_struct *work)

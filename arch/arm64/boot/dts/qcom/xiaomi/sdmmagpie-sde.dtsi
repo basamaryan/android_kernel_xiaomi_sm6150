@@ -1,6 +1,10 @@
 &mdss_mdp {
 	clock-rate = <0 0 0 0 344000000 19200000 200000000
 	  200000000>;
+<<<<<<< HEAD
 	qcom,sde-num-mnoc-ports = <2>;
+=======
+	qcom,sde-num-mnoc-ports = <1>;
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 	qcom,sde-axi-bus-width = <32>;
 };

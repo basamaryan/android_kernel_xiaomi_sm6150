@@ -2576,7 +2576,11 @@ static void gtp_set_edge_filter_game(int edge_filter_corner_size)
 	ts_log("check_sum = %d", dev->board_data->edge_filter_params.check_sum);
 }
 
+<<<<<<< HEAD
 static void gtp_set_edge_filter_normal(void)
+=======
+static void gtp_set_edge_filter_normal()
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 {
 	int sum_corner = 0, sum_edge = 0, sum_dead = 0;
 	struct goodix_ts_device *dev = goodix_core_data->ts_dev;
@@ -2604,7 +2608,11 @@ static void gtp_set_edge_filter_normal(void)
 	ts_log("check_sum = %d", dev->board_data->edge_filter_params.check_sum);
 }
 
+<<<<<<< HEAD
 static int gtp_send_cur_cmd(void)
+=======
+static int gtp_send_cur_cmd()
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 {
 	u8 state_data[3] = {0};
 	int ret = 0;

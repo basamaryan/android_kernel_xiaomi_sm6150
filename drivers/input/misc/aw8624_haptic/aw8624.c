@@ -2637,7 +2637,11 @@ static int aw8624_parse_dt(struct device *dev, struct aw8624 *aw8624,
 		printk
 		    ("%s: %d  effect->pattern_length=%d  effect->pattern=%d \n",
 		     __func__, __LINE__, effect->pattern_length,
+<<<<<<< HEAD
 		     (uintptr_t)effect->pattern);
+=======
+		     (int)effect->pattern);
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 
 		effect->play_rate_us = config->play_rate_us;
 		rc = of_property_read_u32(child_node, "qcom,wf-play-rate-us",
@@ -4303,7 +4307,15 @@ aw8624_i2c_probe(struct i2c_client *i2c, const struct i2c_device_id *id)
 		     HRTIMER_MODE_REL);
 	aw8624->hap_disable_timer.function = qti_hap_disable_timer;
 
+<<<<<<< HEAD
 	input_dev->name = "aw8624_haptic";
+=======
+#ifdef CONFIG_INPUT_QTI_HAPTICS
+	input_dev->name = "aw8624_haptic";
+#else
+	input_dev->name = "qti-haptics";
+#endif
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 	input_set_drvdata(input_dev, aw8624);
 	aw8624->input_dev = input_dev;
 	input_set_capability(input_dev, EV_FF, FF_CONSTANT);
@@ -4457,4 +4469,7 @@ module_exit(aw8624_i2c_exit);
 
 MODULE_DESCRIPTION("AW8624 Haptic Driver");
 MODULE_LICENSE("GPL v2");
+<<<<<<< HEAD
 
+=======
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae

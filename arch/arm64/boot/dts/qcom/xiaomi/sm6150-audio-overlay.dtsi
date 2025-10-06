@@ -1,3 +1,7 @@
+<<<<<<< HEAD
 &swr2 {
+=======
+&tx_macro {
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 	qcom,swr-mstr-tx-wakeup-capable;
 };

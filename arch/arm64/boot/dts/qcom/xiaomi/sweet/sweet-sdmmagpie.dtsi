@@ -215,6 +215,7 @@ And public attribution of xiaomi platforms(like F3 and so and)
 		ti,bq2597x,ac-ovp-threshold = <14>;
 		//ti,bq2597x,sense-resistor-mohm = <2>;
 	};
+<<<<<<< HEAD
 
 	ln8000_charger@51 {
 		compatible = "lionsemi,ln8000";
@@ -255,6 +256,8 @@ And public attribution of xiaomi platforms(like F3 and so and)
 		ln8000_charger,vbat-reg-disable;
 	};
 
+=======
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 	aw8624_haptic@5A {
 		compatible = "awinic,aw8624_haptic";
 		reg = <0x5A>;
@@ -624,9 +627,14 @@ And public attribution of xiaomi platforms(like F3 and so and)
 &qupv3_se8_spi {
 	status = "ok";
 	irled@0 {
+<<<<<<< HEAD
 		compatible = "ir-spi-led";
 		reg = <0x0>;
 		power-supply = <&irda_regulator>;
+=======
+		compatible = "ir-spi";
+		reg = <0x0>;
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 		status = "ok";
 		spi-max-frequency = <19200000>;
 	};
@@ -641,10 +649,13 @@ And public attribution of xiaomi platforms(like F3 and so and)
 	thermal_message: thermal-message {
 		board-sensor = "VIRTUAL-SENSOR";
 	};
+<<<<<<< HEAD
 	irda_regulator: irda-regulator {
 		compatible = "regulator-dummy";
 		regulator-name = "irda_regulator";
 	};
+=======
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 };
 
 /* Enlarge TZ memory size to 62M */
@@ -726,6 +737,7 @@ And public attribution of xiaomi platforms(like F3 and so and)
 	qcom,platform-reset-gpio = <&pm6150l_gpios 9 0>;
 };
 
+<<<<<<< HEAD
 &dsi_k6_38_0e_0b_fhd_dsc_video {
 	qcom,panel-supply-entries = <&dsi_panel_pwr_supply_labibb_amoled>;
 	qcom,mdss-dsi-bl-pmic-control-type = "bl_ctrl_dcs";
@@ -738,6 +750,8 @@ And public attribution of xiaomi platforms(like F3 and so and)
 	qcom,platform-reset-gpio = <&pm6150l_gpios 9 0>;
 };
 
+=======
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 &dsi_sw43404_amoled_video {
 	qcom,mdss-brightness-max-level = <2047>;
 };

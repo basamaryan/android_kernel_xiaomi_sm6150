@@ -101,7 +101,11 @@ int changeSAD(u8 sad)
 * Retrieve the pointer to the device struct of the IC
 * @return a the device struct pointer if client was previously set or NULL in all the other cases
 */
+<<<<<<< HEAD
 struct device *getDev(void)
+=======
+struct device *getDev()
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 {
 	if (client != NULL)
 		return &(getClient()->dev);
@@ -114,7 +118,11 @@ struct device *getDev(void)
 * Retrieve the pointer of the i2c_client struct representing the IC as i2c slave
 * @return client if it was previously set or NULL in all the other cases
 */
+<<<<<<< HEAD
 struct i2c_client *getClient(void)
+=======
+struct i2c_client *getClient()
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 {
 	if (client != NULL)
 		return (struct i2c_client *)client;

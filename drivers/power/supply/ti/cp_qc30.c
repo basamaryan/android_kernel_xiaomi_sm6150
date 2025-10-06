@@ -1252,9 +1252,12 @@ static void cp_workfunc(struct work_struct *work)
 	if (pm_state.usb_present == 0) {
 		cp_set_qc_bus_protections(HVDCP3_NONE);
 		cp_set_fake_hvdcp3(false);
+<<<<<<< HEAD
 #ifdef CONFIG_K6_CHARGE
 		pm_state.state = CP_STATE_DISCONNECT;
 #endif
+=======
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 		return;
 	}
 

@@ -19,7 +19,11 @@
 #include "sm6150-idp.dtsi"
 #include "sm6150-audio-overlay.dtsi"
 
+<<<<<<< HEAD
 #include "xiaomi/violet/violet-sm6150.dtsi"
+=======
+#include "xiaomi/violet-sm6150.dtsi"
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 
 / {
 	model = "VIOLET";

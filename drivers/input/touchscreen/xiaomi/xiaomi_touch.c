@@ -214,6 +214,7 @@ int update_palm_sensor_value(int value)
 	return 0;
 }
 
+<<<<<<< HEAD
 static unsigned int double_tap_status = 0;
 static ssize_t double_tap_show(struct device *dev,
 struct device_attribute *attr, char *buf)
@@ -246,6 +247,8 @@ struct device_attribute *attr, const char *buf, size_t count)
 	return count;
 }
 
+=======
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 static ssize_t palm_sensor_show(struct device *dev,
 struct device_attribute *attr, char *buf)
 {
@@ -417,8 +420,11 @@ static ssize_t xiaomi_panel_display_show(struct device *dev, struct device_attri
 	return snprintf(buf, PAGE_SIZE, "%c\n", value);
 }
 
+<<<<<<< HEAD
 static DEVICE_ATTR(double_tap, 0644, double_tap_show, double_tap_store);
 
+=======
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 static DEVICE_ATTR(palm_sensor, (S_IRUGO | S_IWUSR | S_IWGRP),
 		   palm_sensor_show, palm_sensor_store);
 
@@ -434,7 +440,10 @@ static DEVICE_ATTR(panel_vendor, 0644, xiaomi_panel_vendor_show, NULL);
 static DEVICE_ATTR(panel_color, 0644, xiaomi_panel_color_show, NULL);
 
 static struct attribute *touch_attr_group[] = {
+<<<<<<< HEAD
 	&dev_attr_double_tap.attr,
+=======
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 	&dev_attr_palm_sensor.attr,
 	&dev_attr_p_sensor.attr,
 	&dev_attr_log_debug.attr,

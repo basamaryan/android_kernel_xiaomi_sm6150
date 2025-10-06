@@ -1,5 +1,9 @@
 /*
  * Copyright (C) 2010 - 2018 Novatek, Inc.
+<<<<<<< HEAD
+=======
+ * Copyright (C) 2021 XiaoMi, Inc.
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
  *
  * $Revision: 32206 $
  * $Date: 2018-08-10 19:23:04 +0800 (週五, 10 八月 2018) $
@@ -16,6 +20,10 @@
  *
  */
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 #include <linux/proc_fs.h>
 #include <linux/seq_file.h>
 #include <linux/delay.h>
@@ -31,6 +39,10 @@
 #define NVT_XIAOMI_LOCKDOWN_INFO "tp_lockdown_info"
 #define NVT_POCKET_PALM_SWITCH "nvt_pocket_palm_switch"
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 #define SPI_TANSFER_LENGTH  256
 
 #define NORMAL_MODE 0x00
@@ -51,6 +63,11 @@ static struct proc_dir_entry *NVT_proc_xiaomi_config_info_entry;
 static struct proc_dir_entry *NVT_proc_xiaomi_lockdown_info_entry;
 static struct proc_dir_entry *NVT_proc_pocket_palm_switch_entry;
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 // Xiaomi Config Info.
 static uint8_t nvt_xiaomi_conf_info_fw_ver = 0;
 static uint8_t nvt_xiaomi_conf_info_fae_id = 0;
@@ -578,11 +595,20 @@ static int nvt_xiaomi_lockdown_info_show(struct seq_file *m, void *v)
 	return 0;
 }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 static int32_t nvt_xiaomi_lockdown_info_open(struct inode *inode, struct file *file)
 {
 	return single_open(file, nvt_xiaomi_lockdown_info_show, NULL);
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 749a9b6f6704202e61dea9981435107356db3cae
 static const struct file_operations nvt_xiaomi_lockdown_info_fops = {
 	.owner = THIS_MODULE,
 	.open = nvt_xiaomi_lockdown_info_open,
